@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+    <title>Lista de tarefas</title>
+  </head>
+  <body>
+    <div class="main-content">
+      <section>
+        <form>
+          <div>
+            <label for="title">Título</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="informe o título da tarefa"
+              required
+            />
+          </div>
+          <div>
+            <label for="description">Descrição da tarefa</label>
+            <textarea
+              id="description"
+              rows="2"
+              maxlength="100"
+              required
+              placeholder="informe a descrição da tarefa"
+            ></textarea>
+          </div>
+
+          <div>
+            <button type="submit">Cadastrar</button>
+          </div>
+        </form>
+      </section>
+      <section>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    
+                </tr>
+
+            </tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="./assets/scripts/index.js"></script>
+  </body>
+</html>
