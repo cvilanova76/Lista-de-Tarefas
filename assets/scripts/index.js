@@ -33,6 +33,13 @@ function updateViewTable(list) {
   list.forEach((item, index) => {
     const trElement = document.createElement("tr");
 
+    if (item.status) {
+      const myClassStatus = getClassByStatus(item.status);
+      if(myClassStatus !== "") {
+        trElement.classList.add(myClassStatus);
+      }
+    }
+
     trElement.innerHTML = `
         <td>${index + 1}</td>
         <td>${item.title}</td>
@@ -49,6 +56,31 @@ function updateViewTable(list) {
                 <li><h6 class="dropdown-header">Ações</h6></li>
                 <li><button class="dropdown-item" 
                 onclick="deleteTask(${index})">Excluir</button></li>
+                <li><h6 class="dropdown-header">Alterar status</h6></li>
+                <li>
+                    <button
+                        class="btn btn-outline-success btn-status-task" 
+                        onclick="updateStatusTask(${index},'done')"
+                        type="button">
+                        Concluída
+                    </button>
+                </li>
+                <li>
+                    <button
+                        class="btn btn-outline-warning btn-status-task" 
+                        onclick="updateStatusTask(${index},'pending')"
+                        type="button">
+                        Pendente
+                    </button>
+                </li>
+                <li>
+                    <button
+                        class="btn btn-outline-danger btn-status-task" 
+                        onclick="updateStatusTask(${index},'canceled')"
+                        type="button">
+                        Cancelado
+                    </button>
+                </li>
             </ul>
             </div>
         </td>
@@ -57,11 +89,30 @@ function updateViewTable(list) {
   });
 }
 
-function deleteTask(index){
-    tasks.splice(index, 1);
+function getClassByStatus(status) {
+  switch (status) {
+    case "done":
+      return "table-success";
+    case "pending":
+      return "table-warning";
+    case "canceled":
+      return "table-danger";
+    default:
+      return "";
+  }
+}
 
-    updateViewTable(tasks);
-    saveTasksLocalStorage();
+function updateStatusTask(index, status) {
+  tasks[index].status = status;
+  saveTasksLocalStorage();
+  updateViewTable(tasks);
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+
+  updateViewTable(tasks);
+  saveTasksLocalStorage();
 }
 
 function saveTasksLocalStorage() {
