@@ -5,8 +5,8 @@ const KEY_TASKS_LOCAL_STORAGE = "tasks";
 
 const tasks = getTasksLocalStorage();
 
-if(tasks.length > 0){
-    updateViewTable(tasks);
+if (tasks.length > 0) {
+  updateViewTable(tasks);
 }
 
 form.addEventListener("submit", (event) => {
@@ -50,7 +50,18 @@ function saveTasksLocalStorage() {
 }
 
 function getTasksLocalStorage() {
-  const dataString = localStorage.getItem(KEY_TASKS_LOCAL_STORAGE);
-  const list = JSON.parse(dataString);
-  return list;
+  try {
+    const dataString = localStorage.getItem(KEY_TASKS_LOCAL_STORAGE);
+
+    if (dataString === "") {
+      throw "sem dados";
+    }
+    const list = JSON.parse(dataString);
+    return list;
+  } catch (exception) {
+    if (exception !== "sem dados") {
+      alert("Não foi possível recuperar sua lista de tarefas");
+    }
+    return [];
+  }
 }
