@@ -34,10 +34,36 @@
             </div>
           <div>
             <button type="submit" class="btn btn-secondary">Cadastrar</button>
+            <button type="reset" class="btn btn-primary">Limpar</button>
           </div>
         </form>
       </section>
-      <section class="table-result">
+      <section class="overflow-auto">
+        <div>
+          <span>Filtros</span>
+            <form id="form-filter-tasks" class="row g-3">
+                <div class="col-auto">
+                  <input 
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="title-filter"
+                  placeholder="filtrar por título"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input 
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="description-filter"
+                  placeholder="filtrar por descrição"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-secondary btn-sm">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
         <table class="table table-warning table-striped table-hover caption-top">
           <caption class="title">Lista de tarefas
 

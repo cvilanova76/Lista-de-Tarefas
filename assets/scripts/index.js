@@ -1,5 +1,6 @@
 const form = document.querySelector("#form-create-task");
 const tbodyTasks = document.querySelector("#tbody-tasks");
+const formFilter = doccument.querySelector("#form-filter-tasks");
 
 const KEY_TASKS_LOCAL_STORAGE = "tasks";
 
@@ -27,6 +28,35 @@ form.addEventListener("submit", (event) => {
   saveTasksLocalStorage();
 });
 
+formFilter.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formFilter = event.target;
+  const { titleFilter, descriptionFilter } = formFilter;
+
+  const tasksFiltered = filterTasks({
+    title: titleFilter.value,
+    description: descriptionFilter.value,
+  });
+
+  updateViewTable(tasksFiltered);
+});
+
+function filterTasks({ title, description }) {
+  if (title === "" && description === "") {
+    return tasks;
+  }
+
+  const newTasks = tasks.filter((task) => {
+    let descriptionUpper = task.description.toUpperCase();
+    let titleUpper = task.title.toUpperCase();
+    let descriptionOk =
+      description.lenght > 0 && descriptionUpper.includes(description.toUpperCase());
+    let titleOk = title.lenght > 0 && titleUpper.includes(title.toUpperCase());
+    return descrptionOk || titleOK;
+  });
+  return newTasks;
+}
+
 function updateViewTable(list) {
   tbodyTasks.innerHTML = "";
 
@@ -35,7 +65,7 @@ function updateViewTable(list) {
 
     if (item.status) {
       const myClassStatus = getClassByStatus(item.status);
-      if(myClassStatus !== "") {
+      if (myClassStatus !== "") {
         trElement.classList.add(myClassStatus);
       }
     }
@@ -124,7 +154,7 @@ function getTasksLocalStorage() {
   try {
     const dataString = localStorage.getItem(KEY_TASKS_LOCAL_STORAGE);
 
-    if (dataString === "") {
+    if (!dataString) {
       throw "sem dados";
     }
     const list = JSON.parse(dataString);
